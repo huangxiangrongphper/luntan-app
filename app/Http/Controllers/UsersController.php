@@ -43,8 +43,31 @@ class UsersController extends Controller
      */
     public function store(Requests\UserRegisterRequest $request)
     {
-        User::create(array_merge($request->all(),['avatar'=>'/images/default-avatar.png']));
+        $data = [
+            'confirm_code'=>str_random(48),
+            'avatar'=>'/images/default-avatar.png'
+        ];
+      $user = User::create(array_merge($request->all(),$data));
+
+        $subject = 'Confirm Your Email';
+        $view = 'email.register';
+
+        $this->sendTo($user,$subject,$view,$data);
+        
         return redirect('/');
+    }
+
+    public function confirmEmail($confirm_code)
+    {
+        $user = User::where('confirm_code',$confirm_code)->first();
+        if(is_null($user)){
+            return redirect('/');
+        }
+        $user->is_confirmed = 1;
+        $user->confirm_code = str_random(48);
+        $user->save();
+
+        return redirect('user/login');
     }
 
     /**
@@ -90,5 +113,12 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function sendTo($user, $subject, $view, $data=[])
+    {
+        \Mail::queue($view,$data,function($message) use ($user,$subject){
+            $message->to($user->email)->subject($subject);
+        });
     }
 }

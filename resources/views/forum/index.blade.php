@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-    <div class="jumbotron">
+    <div class="jumbotron" style="background-color: #4cae4c">
         <div class="container">
             <h2>欢饮来到Laravel 社区
                 <a class="btn btn-primary btn-lg pull-right" href="#" role="button">发布新的帖子 »</a>
