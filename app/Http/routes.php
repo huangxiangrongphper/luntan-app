@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'PostsController@index');
+
+Route::resource('discussions','PostsController');
