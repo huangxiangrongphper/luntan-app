@@ -3,7 +3,7 @@
     <div class="jumbotron" style="background-color: #4ecca3">
         <div class="container">
             <h2>欢饮来到Laravel 社区
-                <a class="btn btn-primary btn-lg pull-right" href="#" role="button">发布新的帖子 »</a>
+                <a class="btn btn-primary btn-lg pull-right" href="/discussions/create" role="button">发布新的帖子 »</a>
             </h2>
         </div>
     </div>
