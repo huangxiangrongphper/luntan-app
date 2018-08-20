@@ -26,6 +26,20 @@
                 <div class="blog-post">
                     {!! $html !!}
                 </div>
+                <hr>
+                @foreach($discussion->comments as $comment)
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img src="{{$comment->user->avatar}}" alt="64x64" class="media-object img-circle" style="width: 64px; height:64px;">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                        <h4 class="media-heading">{{$comment->user->name}}</h4>
+                        {{ $comment->body }}
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
