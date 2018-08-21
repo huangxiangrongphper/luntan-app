@@ -40,6 +40,21 @@
                         </div>
                     </div>
                 @endforeach
+                <hr>
+                @if(Auth::check())
+                {!! Form::open(['url'=>'/comment']) !!}
+                {!! Form::hidden('discussion_id',$discussion->id) !!}
+                <div class="form-group">
+                    {!! Form::textarea('body',null,['class' => 'form-control']) !!}
+                </div>
+                <div>
+                    {!! Form::submit('发表评论',['class'=>'btn btn-success pull-right']) !!}
+                </div>
+               {!! Form::close() !!}
+                @else
+                    {!! Session::put('discount_id', $discussion->id) !!}
+                    <a href="/user/login" class="btn btn-block btn-success">登录参与评论</a>
+                @endif
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
@@ -82,7 +83,9 @@ class UsersController extends Controller
             'password'=>$request->get('password'),
             'is_confirmed' => 1
         ])){
-        return redirect('/');
+            $path = \Session ::get('discount_id') != '' ? '/discussions/' . \Session::get('discount_id') : '/';
+            \Session::forget('discount_id');
+            return redirect($path);
         }
         \Session::flash('user_login_failed','密码不正确或邮箱没有验证');
         return redirect('/user/login')->withInput();
