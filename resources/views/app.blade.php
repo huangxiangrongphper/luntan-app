@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Discussion</title>
     <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/font-awesome.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -24,8 +25,18 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if(Auth::check())
-                    <li><a href="#">{{ Auth::user()->name }}</a></li>
-                    <li><a href="/logout">退出登录</a></li>
+                    <li><a id="drop1" type="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+                            {{ Auth::user()->name }}
+                        </a>
+                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                        <li><a href="#"> <i class="fa fa-user"></i> 更换头像</a></li>
+                        <li><a href="#"> <i class="fa fa-cog"></i> 更换密码</a></li>
+                        <li><a href="#"> <i class="fa fa-heart"></i> 特别感谢</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li> <a href="/logout">  <i class="fa fa-sign-out"></i> 退出登录</a></li>
+                    </ul>
+                    </li>
+                    <li><img src="{{Auth::user()->avatar}}" class="img-circle" width="50" alt=""></li>
                 @else
                 <li><a href="/user/login">登 录</a></li>
                 <li><a href="/user/register">注 册</a></li>
@@ -35,5 +46,8 @@
     </div>
 </nav>
 @yield('content')
+@include('footer')
+<script src="//cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

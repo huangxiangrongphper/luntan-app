@@ -1,9 +1,9 @@
 @extends('app')
 @section('content')
-    <div class="jumbotron" style="background-color: #4ecca3">
+    <div class="jumbotron">
         <div class="container">
             <h2>欢饮来到Laravel 社区
-                <a class="btn btn-primary btn-lg pull-right" href="/discussions/create" role="button">发布新的帖子 »</a>
+                <a class="btn btn-danger btn-lg pull-right" href="/discussions/create" role="button">发布新的帖子 »</a>
             </h2>
         </div>
     </div>
@@ -18,7 +18,15 @@
                         </a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading"><a href="/discussions/{{ $discussion->id }}">{{ $discussion->title }}</a></h4>
+                        <h4 class="media-heading">
+                            <a href="/discussions/{{ $discussion->id }}">{{ $discussion->title }}</a>
+                    <div class="media-conversation-meta">
+                        <span class="media-conversation-replies">
+                            <a href="/discussion/154#reply">{{ count($discussion->comments) }}</a>
+                            回复
+                        </span>
+                    </div>
+                        </h4>
                         {{ $discussion->user->name }}
                     </div>
                 </div>
