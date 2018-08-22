@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/font-awesome.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.form.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top">
@@ -29,7 +32,7 @@
                             {{ Auth::user()->name }}
                         </a>
                     <ul class="dropdown-menu" aria-labelledby="dLabel">
-                        <li><a href="#"> <i class="fa fa-user"></i> 更换头像</a></li>
+                        <li><a href="/user/avatar"> <i class="fa fa-user"></i> 更换头像</a></li>
                         <li><a href="#"> <i class="fa fa-cog"></i> 更换密码</a></li>
                         <li><a href="#"> <i class="fa fa-heart"></i> 特别感谢</a></li>
                         <li role="separator" class="divider"></li>
@@ -47,7 +50,6 @@
 </nav>
 @yield('content')
 @include('footer')
-<script src="//cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Image;
 use App\User;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
@@ -89,6 +90,41 @@ class UsersController extends Controller
         }
         \Session::flash('user_login_failed','密码不正确或邮箱没有验证');
         return redirect('/user/login')->withInput();
+    }
+
+    public function avatar()
+    {
+        return view('users.avatar');
+    }
+
+    public function changeAvatar(Request $request)
+    {
+        $file = $request->file('avatar');
+        $input = array('image' => $file);
+        $rules = array(
+            'image' => 'image'
+        );
+        $validator = \Validator::make($input, $rules);
+        if ( $validator->fails() ){
+            return \Response::json([
+                'success' => false,
+                'errors'  => $validator->getMessageBag()->toArray(),
+            ]);
+        }
+
+        $destinationPath = 'uploads/';
+        $filename = \Auth::user()->id.'_'.time().$file->getClientOriginalName();
+        $file->move($destinationPath,$filename);
+        Image::make($destinationPath.$filename)->fit(200)->save();
+        $user = User::find(\Auth::user()->id);
+        $user->avatar = '/'.$destinationPath.$filename;
+        $user->save();
+
+        return \Response::json([
+            'success' => true,
+            'avatar'  => asset($destinationPath.$filename),
+        ]);
+
     }
 
     /**
