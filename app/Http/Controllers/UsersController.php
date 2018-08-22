@@ -120,14 +120,15 @@ class UsersController extends Controller
 
         return \Response::json([
             'success' => true,
-            'avatar'  => '/'.$destinationPath.$filename,
+            'avatar'  => asset($destinationPath.$filename),
+            'image'  => $destinationPath.$filename,
         ]);
 
     }
 
     public function cropAvatar(Request $request)
     {
-        $photo = mb_substr($request->get('photo'),1);
+        $photo = $request->get('photo');
         $width = (int) $request->get('w');
         $height= (int) $request->get('h');
         $xAlign = (int) $request->get('x');
@@ -136,7 +137,7 @@ class UsersController extends Controller
         Image::make($photo)->crop($width,$height,$xAlign,$yAlign)->save();
 
         $user = \Auth::user();
-        $user->avatar = $request->get('photo');
+        $user->avatar = asset($photo);
         $user->save();
 
         return redirect('/user/avatar');
